@@ -1,7 +1,7 @@
 # instacart-delivery-availability-check
 Tiny python script that check's instacart's delivery availability and notifies you if a slot opens up.
 
-Note: I threw this together in a few mins so apologies for code quality etc.
+Note: I threw this together in under 30 mins or so, apologies for code quality etc.
 
 ### Quick setup guide:
 - See `credentials_example.json` and fill out all the fields with values!

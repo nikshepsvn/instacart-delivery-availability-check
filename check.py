@@ -22,24 +22,27 @@ click(Button("Log In"))
 write(INSTACART_EMAIL, into="Email address")
 write(INSTACART_PASSWORD, into="Password")
 click(Button("Log In"))
-wait_until(Link("See delivery times").exists)
+wait_until(Link("Your Items").exists)
 
 
 # -- check store logic -- #
 def check_delivery_times_for_store(store_name):
     go_to(INSTACART_DELIVERY_URL.format(store_name))
-    sleep(2)
-    if Text("No delivery times available").exists():
-        #print("No Delivery times available")
-        return False, "No Delivery times available for {}".format(store_name)
+    sleep(5)
+
+    if (Text("Saturday").exists() or Text("Sunday").exists() or Text("Monday").exists() or Text("Tuesday").exists() or Text("Wednesday").exists() or Text("Thursday").exists() or Text("Friday").exists()):
+        return True, "DY / Delivery times found for {}!".format(store_name)
+    elif Text("Fast & Flexible").exists():
+        return True, "FF / Delivery times found for {}!".format(store_name)
+    elif Link("More times").exists():
+        return True, "MT / Delivery times found for {}!".format(store_name)
     elif Text("There was a problem loading this page").exists():
         return False, "There was a problem loading this page"
+    elif Text("No delivery times available").exists():
+        return False, "No Delivery times available for {}".format(store_name)
     else:
-        #print("Delivery times found")
-        return (
-            True,
-            "Delivery times found for {}! Please check soon :)".format(store_name)
-        )
+        #unexpected response, generate screenshot, return generic error
+        return False, "Unexpected response"
 
 
 # -- send email -- #
@@ -71,13 +74,10 @@ def main():
             print (message)
 
             if availability:
-                send_simple_message(message)
-                print(message)
-
-                #status = True 
+                #send_simple_message(message)
+                status = True 
             else:
                 pass
-
         time.sleep(900)
 
 

@@ -31,13 +31,13 @@ def check_delivery_times_for_store(store_name):
     sleep(5)
 
     if (Text("Saturday").exists() or Text("Sunday").exists() or Text("Monday").exists() or Text("Tuesday").exists() or Text("Wednesday").exists() or Text("Thursday").exists() or Text("Friday").exists()):
-        return True, "DY / Delivery times found for {}!".format(store_name)
+        return True, "Delivery times found for {}!".format(store_name)
     elif Text("Fast & Flexible").exists():
-        return True, "FF / Delivery times found for {}!".format(store_name)
+        return True, "Delivery times found for {}!".format(store_name)
     elif Link("More times").exists():
-        return True, "MT / Delivery times found for {}!".format(store_name)
+        return True, "Delivery times found for {}!".format(store_name)
     elif Text("There was a problem loading this page").exists():
-        return False, "There was a problem loading this page"
+        return False, "There was a problem loading {}".format(store_name)
     elif Text("No delivery times available").exists():
         return False, "No Delivery times available for {}".format(store_name)
     else:
@@ -63,22 +63,13 @@ def send_simple_message(message):
 
 # -- check all stores in list and notify -- #
 def main():
-    status = False
 
-    while status == False:
-        print("---------------"+str(datetime.datetime.now())+"------------")
+    print("---------------"+str(datetime.datetime.now())+"------------")
 
-        for store in STORE_LIST:
-            availability, message = check_delivery_times_for_store(store)
-            
-            print (message)
-
-            if availability:
-                #send_simple_message(message)
-                status = True 
-            else:
-                pass
-        time.sleep(900)
+    for store in STORE_LIST:
+        availability, message = check_delivery_times_for_store(store)
+        
+        print (message)
 
 
 if __name__ == "__main__":

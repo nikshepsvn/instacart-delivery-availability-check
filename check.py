@@ -64,12 +64,17 @@ def send_simple_message(message):
 # -- check all stores in list and notify -- #
 def main():
 
-    print("---------------"+str(datetime.datetime.now())+"------------")
+    flag = False
 
-    for store in STORE_LIST:
-        availability, message = check_delivery_times_for_store(store)
-        
-        print (message)
+    while flag == False: 
+        print("---------------"+str(datetime.datetime.now())+"------------")
+
+        for store in STORE_LIST:
+            availability, message = check_delivery_times_for_store(store)
+            if availability == True:
+                flag = True 
+
+            print (message)
 
 
 if __name__ == "__main__":

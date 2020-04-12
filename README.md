@@ -11,6 +11,6 @@ Tiny python script that check's instacart's delivery availability and notifies y
 - You can head over to: https://www.notion.so/Instacart-Availability-Script-6b4372a81dd645e697088d5d82845227 for a complete run down of the set up 
 
 NOTE: 
-If you're using Instacart in the US, you'll have to change the base domains in the `credentials.json`, we've only made this Canadian friendly (sorry, sorry, sorry lol)
+If you're using Instacart in the US, you'll have to change the base URLs for Instacart in the `credentials.json`, we've only made this Canadian friendly (sorry, sorry, sorry lol)
 
 Feel free to open an issue if you have any questions!

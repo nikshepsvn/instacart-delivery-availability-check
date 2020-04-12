@@ -82,7 +82,7 @@ def main():
         for store in STORE_LIST:
             availability, message = check_delivery_times_for_store(store)
             if availability == True:
-                #os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
+                os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
                 send_simple_message(message)
                 flag = True
 

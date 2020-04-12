@@ -79,6 +79,9 @@ def main():
 
             print (message)
 
+        print("** Next update in 15 minutes **")
+        time.sleep(900)
+
 
 if __name__ == "__main__":
     main()

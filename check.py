@@ -40,6 +40,8 @@ def check_delivery_times_for_store(store_name):
         return True, "Delivery times found for {}!".format(store_name)
     elif Link("More times").exists():
         return True, "Delivery times found for {}!".format(store_name)
+    elif (Text("Today").exists() or Text("Tomorrow").exists()):
+        return True, "Delivery times found for {}!".format(store_name)
     elif Text("There was a problem loading this page").exists():
         return False, "There was a problem loading {}".format(store_name)
     elif Text("No delivery times available").exists():
@@ -80,7 +82,7 @@ def main():
         for store in STORE_LIST:
             availability, message = check_delivery_times_for_store(store)
             if availability == True:
-                os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
+                #os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
                 send_simple_message(message)
                 flag = True
 

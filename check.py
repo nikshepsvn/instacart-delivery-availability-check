@@ -74,17 +74,22 @@ def send_simple_message(message):
 
 # -- check all stores in list and notify -- #
 def main():
-    flag = False
+    deliveryAvailability = False
+    
+    voiceNotification = True
+    emailNotification = True
 
-    while flag == False: 
+    while deliveryAvailability == False: 
         print("--------------- "+str(datetime.now().strftime("%b %d, %Y %H:%M:%S"))+" ------------")
 
         for store in STORE_LIST:
             availability, message = check_delivery_times_for_store(store)
             if availability == True:
-                os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
-                send_simple_message(message)
-                flag = True
+                if voiceNotification:
+                    os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
+                if emailNotification:
+                    send_simple_message(message)
+                deliveryAvailability = True
 
             print (message)
 

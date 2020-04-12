@@ -7,7 +7,7 @@ Tiny python script that check's instacart's delivery availability and notifies y
 - You can setup a free mailgun account if you want email notifications, if you want another way of getting notified just modify the `send_simple_message` function!
 - Setup as a cron job on your OS/Home Server etc. and let it run every 30mins/hour or so.
 
-### Non-dev setup guide: 
+### Non-technical setup guide: 
 - You can head over to: https://www.notion.so/Instacart-Availability-Script-6b4372a81dd645e697088d5d82845227 for a complete run down of the set up 
 
 NOTE: 

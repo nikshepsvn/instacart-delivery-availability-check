@@ -4,6 +4,8 @@ import json
 import requests
 import time
 import datetime
+import os
+import sys
 
 # -- data -- #
 credentials = json.load(open("credentials.json"))
@@ -72,6 +74,7 @@ def main():
         for store in STORE_LIST:
             availability, message = check_delivery_times_for_store(store)
             if availability == True:
+                os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
                 flag = True 
 
             print (message)

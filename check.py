@@ -1,9 +1,9 @@
 from helium import *
 from time import sleep
+from datetime import datetime
 import json
 import requests
 import time
-import datetime
 import os
 import sys
 
@@ -19,12 +19,14 @@ INSTACART_DELIVERY_URL = credentials["INSTACART_DELIVERY_URL"]
 NOTIFICATION_EMAIL = credentials["NOTIFICATION_EMAIL"]
 
 # -- login logic -- #
+print("Logging into Instacart...")
 start_chrome(INSTACART_BASE_URL, headless=True)
 click(Button("Log In"))
 write(INSTACART_EMAIL, into="Email address")
 write(INSTACART_PASSWORD, into="Password")
 click(Button("Log In"))
 wait_until(Link("Your Items").exists)
+print("Checking available delivery slots...\n")
 
 
 # -- check store logic -- #
@@ -49,6 +51,11 @@ def check_delivery_times_for_store(store_name):
 
 # -- send email -- #
 def send_simple_message(message):
+
+    if (MAILGUN_API_KEY=="") or (MAILGUN_API_KEY=="xxx") or (MAILGUN_URL=="") or (MAILGUN_URL=="xxx.mailgun.org") or (NOTIFICATION_EMAIL=="") or (NOTIFICATION_EMAIL=="xxx@gmail.com"):
+        print ("ERROR: Can't sent email notification. Invalid Mailgun API Key, URL or Notification Email")
+        return null
+
     return requests.post(
         "https://api.mailgun.net/v3/{}/messages".format(MAILGUN_URL),
         auth=("api", MAILGUN_API_KEY),
@@ -65,21 +72,21 @@ def send_simple_message(message):
 
 # -- check all stores in list and notify -- #
 def main():
-
     flag = False
 
     while flag == False: 
-        print("---------------"+str(datetime.datetime.now())+"------------")
+        print("--------------- "+str(datetime.now().strftime("%b %d, %Y %H:%M:%S"))+" ------------")
 
         for store in STORE_LIST:
             availability, message = check_delivery_times_for_store(store)
             if availability == True:
                 os.system('say -v Samantha "Delivery is available at {}!"'.format(store))
-                flag = True 
+                send_simple_message(message)
+                flag = True
 
             print (message)
 
-        print("** Next update in 15 minutes **")
+        print("\nNext update in 15 minutes...\n")
         time.sleep(900)
 
 

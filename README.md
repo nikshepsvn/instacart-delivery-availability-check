@@ -34,3 +34,8 @@ NOTE:
 If you're using Instacart in the US, you'll have to change the base URLs for Instacart in the `credentials.json`, we've only made this Canadian friendly (sorry, sorry, sorry lol)
 
 Feel free to open an issue if you have any questions!
+
+### Project Maintainers
+Nikshep Svn: @nikshepsvn
+Ali Naqi: @anaqi
+Alison Nham: @nhamalison 

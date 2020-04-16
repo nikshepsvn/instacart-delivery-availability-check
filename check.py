@@ -3,6 +3,7 @@ from time import sleep
 from datetime import datetime
 import json
 import requests
+import pickle
 import time
 import os
 import sys
@@ -20,19 +21,31 @@ NOTIFICATION_EMAIL = credentials["NOTIFICATION_EMAIL"]
 
 # -- login logic -- #
 print("Logging into Instacart...")
-start_chrome(INSTACART_BASE_URL, headless=True)
-click(Button("Log In"))
-write(INSTACART_EMAIL, into="Email address")
-write(INSTACART_PASSWORD, into="Password")
-click(Button("Log In"))
-wait_until(Link("Your Items").exists)
+driver = start_chrome(INSTACART_BASE_URL, headless=True)
+try:
+    f = open("cookies.pkl", "rb")
+    cookies = pickle.load(f)
+    print("Cookies found! Using cookies to log in.")
+    for cookie in cookies:
+        driver.add_cookie(cookie)
+    go_to(INSTACART_BASE_URL)
+except IOError:
+    print("Cookies not found, logging in!")
+    click(Button("Log In"))
+    write(INSTACART_EMAIL, into="Email address")
+    write(INSTACART_PASSWORD, into="Password")
+    click(Button("Log In"))
+    wait_until(Link("Your Items").exists)
+    pickle.dump( driver.get_cookies() , open("cookies.pkl","wb"))
+
 print("Checking available delivery slots...\n")
 
 
 # -- check store logic -- #
 def check_delivery_times_for_store(store_name):
+    sleep(2)
     go_to(INSTACART_DELIVERY_URL.format(store_name))
-    sleep(5)
+    sleep(2)
 
     if (Text("Saturday").exists() or Text("Sunday").exists() or Text("Monday").exists() or Text("Tuesday").exists() or Text("Wednesday").exists() or Text("Thursday").exists() or Text("Friday").exists()):
         return True, "Delivery times found for {}!".format(store_name)
@@ -79,7 +92,7 @@ def main():
     voiceNotification = True
     emailNotification = True
 
-    while deliveryAvailability == False: 
+    while deliveryAvailability == False:
         print("--------------- "+str(datetime.now().strftime("%b %d, %Y %H:%M:%S"))+" ------------")
 
         for store in STORE_LIST:

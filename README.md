@@ -1,24 +1,23 @@
 # instacart-delivery-availability-check
 Tiny python script that check's instacart's delivery availability and notifies you if a slot opens up.
 
-### Setup guide:
+### Requirements:
 - Python3 is required
 - Chromium based browser required.
-- See `credentials_example.json` to create a `credentials.json` file and fill out all the fields with values!
-- Install `helium`
-- You can setup a free mailgun account if you want email notifications
-- Extra: you can change the voice for the voice notifications, here's some other options: https://gist.github.com/mculp/4b95752e25c456d425c6
+
 
 ### Installation & Setup
 
 - Fill `credentials_example.json` (rename file to `credentials.json`)
+- Install Python requirements
 
 ```sh
-$ pip install tox
-$ pip install helium
-$ pip install requests
-$ python check.py
+$ pip install -r requirements.txt
 ```
+
+- You can setup a free mailgun account if you want email notifications
+- Extra: you can change the voice for the voice notifications, here's some other options: https://gist.github.com/mculp/4b95752e25c456d425c6
+
 
 ### Notification settings
 

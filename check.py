@@ -57,7 +57,7 @@ def check_delivery_times_for_store(store_name):
         return True, "Delivery times found for {}!".format(store_name)
     elif Text("There was a problem loading this page").exists():
         return False, "There was a problem loading {}".format(store_name)
-    elif Text("No delivery times available").exists():
+    elif Text("No delivery times available").exists() or Text("All delivery windows are full").exists():
         return False, "No Delivery times available for {}".format(store_name)
     else:
         #unexpected response, generate screenshot, return generic error

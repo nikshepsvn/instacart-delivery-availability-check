@@ -37,8 +37,10 @@ If you're using Instacart in the US, you'll have to change the base URLs for Ins
 Feel free to open an issue if you have any questions!
 
 ### Project Maintainers
-Nikshep Svn: @nikshepsvn
+- @nikshepsvn
+- @anaqi
+- @nhamalison 
 
-Ali Naqi: @anaqi
-
-Alison Nham: @nhamalison 
+### Project Contributors
+- @tdmorello
+- @naveensrinivasan

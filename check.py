@@ -69,7 +69,7 @@ def send_simple_message(message):
 
     if (MAILGUN_API_KEY=="") or (MAILGUN_API_KEY=="xxx") or (MAILGUN_URL=="") or (MAILGUN_URL=="xxx.mailgun.org") or (NOTIFICATION_EMAIL=="") or (NOTIFICATION_EMAIL=="xxx@gmail.com"):
         print ("ERROR: Can't sent email notification. Invalid Mailgun API Key, URL or Notification Email")
-        return null
+        return None
 
     return requests.post(
         "https://api.mailgun.net/v3/{}/messages".format(MAILGUN_URL),

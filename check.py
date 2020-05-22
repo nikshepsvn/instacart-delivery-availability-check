@@ -18,6 +18,7 @@ STORE_LIST = credentials["STORE_LIST"]
 INSTACART_BASE_URL = credentials["INSTACART_BASE_URL"]
 INSTACART_DELIVERY_URL = credentials["INSTACART_DELIVERY_URL"]
 NOTIFICATION_EMAIL = credentials["NOTIFICATION_EMAIL"]
+reload_timer = credentials["Update_Timer"]
 
 # -- login logic -- #
 print("Logging into Instacart...")
@@ -107,7 +108,7 @@ def main():
             print (message)
 
         print("\nNext update in 15 minutes...\n")
-        time.sleep(900)
+        time.sleep(reload_timer)
 
 
 if __name__ == "__main__":
